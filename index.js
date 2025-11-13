@@ -18,12 +18,22 @@ const client = new MongoClient(uri, {
   },
 });
 
-app.use(cors());
+app.use(
+  cors({
+    origin: [
+      "https://krishi-db-apon212.netlify.app", // ✅ Netlify frontend URL
+    ],
+    methods: ["GET", "POST", "PUT", "DELETE"],
+    credentials: true,
+  })
+);
 app.use(express.json());
 
 let cropsCollection;
 
 // MongoDB Connect + Start Server
+//client
+
 client
   .connect()
   .then(() => {
@@ -195,7 +205,7 @@ app.put("/crops/:id", async (req, res) => {
 app.delete("/crops/:id", async (req, res) => {
   const { id } = req.params;
   try {
-    await cropsCollection.deleteOne({ _id: new ObjectId(id) });
+    //  await cropsCollection.deleteOne({ _id: new ObjectId(id) });
     res.json({ message: "Crop deleted successfully" });
   } catch (err) {
     console.error(err);
