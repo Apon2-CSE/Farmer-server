@@ -2,6 +2,7 @@
 const express = require("express");
 const cors = require("cors");
 const { MongoClient, ServerApiVersion, ObjectId } = require("mongodb");
+const admin = require("firebase-admin");
 require("dotenv").config();
 
 const app = express();
@@ -36,7 +37,7 @@ const client = new MongoClient(uri, {
 async function run() {
   try {
     // ✅ Connect Database
-    await client.connect();
+    // await client.connect();
 
     const db = client.db("krishi-db");
     const cropsCollection = db.collection("crops");
@@ -144,9 +145,9 @@ async function run() {
     console.error("❌ MongoDB Connection Error:", err);
   }
 }
-run().catch(console.dir);
-
 // ✅ Start Server
 app.listen(port, () => {
   console.log(`🚀 Server is running on port ${port}`);
 });
+
+run();
