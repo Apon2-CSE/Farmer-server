@@ -1,13 +1,14 @@
 // 🌾 KrishiLink Server
 const cors = require("cors");
 const { MongoClient, ServerApiVersion, ObjectId } = require("mongodb");
+const admin = require("firebase-admin");
+require("dotenv").config();
 const express = require("express");
 const app = express();
 const port = 3000;
 
 // ✅ MongoDB URI
-const uri =
-  "mongodb+srv://krishi-db:yWg8fWlprpfEvxkN@cluster0.ncssljo.mongodb.net/?retryWrites=true&w=majority&appName=Cluster0";
+const uri = `mongodb+srv://${process.env.DB_USERNAME}:${process.env.DB_PASSWORD}@cluster0.ncssljo.mongodb.net/?retryWrites=true&w=majority&appName=Cluster0`;
 
 const client = new MongoClient(uri, {
   serverApi: {
